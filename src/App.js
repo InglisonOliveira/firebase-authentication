@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import { SignUp } from './Pages/SignUp';
+import { AuthProvider } from './context/authContext';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { UserProfile } from './Pages/UserProfile';
+import { Login } from './Pages/Login';
+import { UpdateProfile } from './Pages/UpdateProfile';
+import { ForgotPassword } from './Pages/ForgotPassword';
+import { ProtectedRoute } from './components/PrivateRoutes';
+import { Header } from './components/Header';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path='/signUp' element={<SignUp />}></Route>
+          <Route path='/login' element={<Login />}></Route>
+
+          <Route
+            path='/'
+            element={
+              <ProtectedRoute>
+                <UserProfile />
+              </ProtectedRoute>
+            }>          
+          </Route>
+
+
+          <Route 
+            path='update-profile'
+            element={
+              <ProtectedRoute>
+                <UpdateProfile />
+              </ProtectedRoute>
+            }>
+          </Route>
+          
+          
+          
+          <Route path='forgot-password' element={<ForgotPassword />} > </Route>
+          <Route path='*' element={
+            <div>
+              <h1> Not Found </h1> 
+            </div>} >
+          </Route>
+            
+          
+         
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
-export default App;
+
