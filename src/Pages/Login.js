@@ -34,7 +34,7 @@ export const Login = () => {
 
     return (
         <div className="button.block">
-            <h2> LOOOOOOGGGIIN</h2>
+            <h2> Logiin</h2>
             <form onSubmit={handleSubmit}>
                 <label> Email</label>
                 <input type='email'
